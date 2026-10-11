@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 import sys
-
+from supabase import create_client, Client
 
 sys.path.append('./backend')
 try:
@@ -65,9 +65,40 @@ if st.button("Predict Spending"):
         "Response": response
     }
     
+if st.button("Predict Spending"):
+    payload = {
+        "Year_Birth": year_birth,
+        "Education": education,
+        "Marital_Status": marital_status,
+        "Income": income,
+        "Kidhome": kidhome,
+        "Teenhome": teenhome,
+        "Dt_Customer": dt_customer,
+        "Recency": recency,
+        "NumDealsPurchases": num_deals,
+        "NumWebPurchases": num_web,
+        "NumCatalogPurchases": num_catalog,
+        "NumStorePurchases": num_store,
+        "NumWebVisitsMonth": num_web_visits,
+        "AcceptedCmp3": accepted_cmp3,
+        "AcceptedCmp4": accepted_cmp4,
+        "AcceptedCmp5": accepted_cmp5,
+        "AcceptedCmp1": accepted_cmp1,
+        "AcceptedCmp2": accepted_cmp2,
+        "Complain": complain,
+        "Response": response
+    }
+    
     try:
         df = pd.DataFrame([payload])
-        prediction = model.predict(df)
-        st.success(f"إجمالي الإنفاق المتوقع (Total Spent): ${float(prediction[0]):.2f}")
+        prediction = float(model.predict(df)[0])
+        st.success(f"إجمالي الإنفاق المتوقع (Total Spent): ${prediction:.2f}")
+        
+        supabase: Client = create_client(st.secrets["SUPABASE_URL"], st.secrets["SUPABASE_KEY"])
+        supabase.table("predictions").insert({
+            "features": payload,
+            "predicted_spent": prediction
+        }).execute()
+        
     except Exception as e:
-        st.error(f"خطأ أثناء التنبؤ: {e}")
+        st.error(f"حدث خطأ: {e}")

@@ -3,3 +3,4 @@ pandas
 scikit-learn==1.8.0
 xgboost==3.4.1
 joblib
+supabase
