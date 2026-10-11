@@ -1,10 +1,24 @@
 import streamlit as st
-import requests
+import pandas as pd
+import joblib
+import sys
+
+
+sys.path.append('./backend')
+try:
+    import preprocessing
+except ImportError:
+    pass
+
+@st.cache_resource
+def load_model():
+    return joblib.load("backend/model_pipeline.pkl")
+
+model = load_model()
 
 st.title("Customer Spending Prediction Dashboard")
 st.write("أدخل بيانات العميل للتنبؤ بإجمالي الإنفاق (Total Spent):")
 
-# حقول الإدخال بناءً على مخطط الميزات
 year_birth = st.number_input("Year of Birth", min_value=1900, max_value=2005, value=1971)
 education = st.selectbox("Education", ["Graduation", "Master", "PhD", "Basic"])
 marital_status = st.selectbox("Marital Status", ["Single", "Married", "Together", "Divorced", "Widow"])
@@ -52,11 +66,8 @@ if st.button("Predict Spending"):
     }
     
     try:
-        response = requests.post("https://customer-spending-prediction.vercel.app", json=payload)
-        if response.status_code == 200:
-            result = response.json()
-            st.success(f"إجمالي الإنفاق المتوقع (Total Spent): ${result['Total_Spent']:.2f}")
-        else:
-            st.error(f"خطأ من الخادم: {response.text}")
+        df = pd.DataFrame([payload])
+        prediction = model.predict(df)
+        st.success(f"إجمالي الإنفاق المتوقع (Total Spent): ${float(prediction[0]):.2f}")
     except Exception as e:
-        st.error(f"تعذر الاتصال بالخادم الخلفي: {e}")
+        st.error(f"خطأ أثناء التنبؤ: {e}")
