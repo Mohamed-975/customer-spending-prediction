@@ -4,6 +4,7 @@ import joblib
 import sys
 from supabase import create_client, Client
 
+
 sys.path.append('./backend')
 try:
     import preprocessing
@@ -41,30 +42,6 @@ accepted_cmp2 = st.selectbox("Accepted Cmp 2", [0, 1])
 complain = st.selectbox("Complain", [0, 1])
 response = st.selectbox("Response", [0, 1])
 
-if st.button("Predict Spending"):
-    payload = {
-        "Year_Birth": year_birth,
-        "Education": education,
-        "Marital_Status": marital_status,
-        "Income": income,
-        "Kidhome": kidhome,
-        "Teenhome": teenhome,
-        "Dt_Customer": dt_customer,
-        "Recency": recency,
-        "NumDealsPurchases": num_deals,
-        "NumWebPurchases": num_web,
-        "NumCatalogPurchases": num_catalog,
-        "NumStorePurchases": num_store,
-        "NumWebVisitsMonth": num_web_visits,
-        "AcceptedCmp3": accepted_cmp3,
-        "AcceptedCmp4": accepted_cmp4,
-        "AcceptedCmp5": accepted_cmp5,
-        "AcceptedCmp1": accepted_cmp1,
-        "AcceptedCmp2": accepted_cmp2,
-        "Complain": complain,
-        "Response": response
-    }
-    
 if st.button("Predict Spending"):
     payload = {
         "Year_Birth": year_birth,
