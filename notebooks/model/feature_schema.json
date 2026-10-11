@@ -1,0 +1,156 @@
+{
+  "target": "Total_Spent",
+  "task": "regression",
+  "selected_model": "XGBoost",
+  "feature_scenario": "all",
+  "input_columns": {
+    "Year_Birth": {
+      "type": "number",
+      "min": 1899.0,
+      "max": 1996.0
+    },
+    "Education": {
+      "type": "category",
+      "allowed": [
+        "2n Cycle",
+        "Basic",
+        "Graduation",
+        "Master",
+        "PhD"
+      ]
+    },
+    "Marital_Status": {
+      "type": "category",
+      "allowed": [
+        "Absurd",
+        "Alone",
+        "Divorced",
+        "Married",
+        "Single",
+        "Together",
+        "Widow",
+        "YOLO"
+      ]
+    },
+    "Income": {
+      "type": "number",
+      "min": 2447.0,
+      "max": 666666.0,
+      "nullable": true
+    },
+    "Kidhome": {
+      "type": "number",
+      "min": 0.0,
+      "max": 2.0
+    },
+    "Teenhome": {
+      "type": "number",
+      "min": 0.0,
+      "max": 2.0
+    },
+    "Dt_Customer": {
+      "type": "date",
+      "format": "DD-MM-YYYY",
+      "example": "04-09-2012"
+    },
+    "Recency": {
+      "type": "number",
+      "min": 0.0,
+      "max": 99.0
+    },
+    "NumDealsPurchases": {
+      "type": "number",
+      "min": 0.0,
+      "max": 15.0
+    },
+    "NumWebPurchases": {
+      "type": "number",
+      "min": 0.0,
+      "max": 27.0
+    },
+    "NumCatalogPurchases": {
+      "type": "number",
+      "min": 0.0,
+      "max": 28.0
+    },
+    "NumStorePurchases": {
+      "type": "number",
+      "min": 0.0,
+      "max": 13.0
+    },
+    "NumWebVisitsMonth": {
+      "type": "number",
+      "min": 0.0,
+      "max": 20.0
+    },
+    "AcceptedCmp3": {
+      "type": "binary (0/1)",
+      "min": 0.0,
+      "max": 1.0
+    },
+    "AcceptedCmp4": {
+      "type": "binary (0/1)",
+      "min": 0.0,
+      "max": 1.0
+    },
+    "AcceptedCmp5": {
+      "type": "binary (0/1)",
+      "min": 0.0,
+      "max": 1.0
+    },
+    "AcceptedCmp1": {
+      "type": "binary (0/1)",
+      "min": 0.0,
+      "max": 1.0
+    },
+    "AcceptedCmp2": {
+      "type": "binary (0/1)",
+      "min": 0.0,
+      "max": 1.0
+    },
+    "Complain": {
+      "type": "binary (0/1)",
+      "min": 0.0,
+      "max": 1.0
+    },
+    "Response": {
+      "type": "binary (0/1)",
+      "min": 0.0,
+      "max": 1.0
+    }
+  },
+  "example_request": {
+    "Year_Birth": 1971,
+    "Education": "Master",
+    "Marital_Status": "Single",
+    "Income": 33316.0,
+    "Kidhome": 1,
+    "Teenhome": 1,
+    "Dt_Customer": "04-10-2013",
+    "Recency": 34,
+    "NumDealsPurchases": 3,
+    "NumWebPurchases": 2,
+    "NumCatalogPurchases": 1,
+    "NumStorePurchases": 4,
+    "NumWebVisitsMonth": 6,
+    "AcceptedCmp3": 0,
+    "AcceptedCmp4": 0,
+    "AcceptedCmp5": 0,
+    "AcceptedCmp1": 0,
+    "AcceptedCmp2": 0,
+    "Complain": 0,
+    "Response": 0
+  },
+  "leakage_note": "Never send MntWines/MntFruits/MntMeatProducts/MntFishProducts/MntSweetProducts/MntGoldProds, ID or Z_* columns.",
+  "test_metrics": {
+    "Test_MAE": 104.3591,
+    "Test_RMSE": 170.6231,
+    "Test_R2": 0.9045
+  },
+  "environment": {
+    "scikit-learn": "1.9.1",
+    "xgboost": "3.4.1",
+    "pandas": "3.0.6",
+    "numpy": "2.5.3"
+  }
+}
