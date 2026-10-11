@@ -52,7 +52,7 @@ if st.button("Predict Spending"):
     }
     
     try:
-        response = requests.post("http://127.0.0.1:8000/predict", json=payload)
+        response = requests.post("https://customer-spending-prediction.vercel.app", json=payload)
         if response.status_code == 200:
             result = response.json()
             st.success(f"إجمالي الإنفاق المتوقع (Total Spent): ${result['Total_Spent']:.2f}")
